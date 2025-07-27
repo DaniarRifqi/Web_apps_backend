@@ -27,14 +27,18 @@ CORS(app, origins=["http://localhost:3000"])
 
 # --- MySQL Config ---
 DB_CONFIG = {
-    'host': 'localhost',
-    'user': 'root',
-    'password': '',
-    'database': 'dryapple',
+    'host': os.getenv('MYSQL_ADDON_HOST'),
+    'user': os.getenv('MYSQL_ADDON_USER'),
+    'password': os.getenv('MYSQL_ADDON_PASSWORD'),
+    'database': os.getenv('MYSQL_ADDON_DB'),
 }
 
 def get_db_connection():
-    return mysql.connector.connect(**DB_CONFIG)
+    try:
+        return mysql.connector.connect(**DB_CONFIG)
+    except Error as err:
+        print(f"Database connection failed: {err}")
+        raise
 
 def init_db():
     conn = get_db_connection()
