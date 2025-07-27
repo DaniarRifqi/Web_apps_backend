@@ -3,4 +3,5 @@ flask_cors
 tensorflow
 pillow
 numpy 
+gunicorn
 mysql-connector-python 
