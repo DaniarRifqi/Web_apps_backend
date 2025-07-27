@@ -1,0 +1,6 @@
+flask
+flask_cors
+tensorflow
+pillow
+numpy 
+mysql-connector-python 
