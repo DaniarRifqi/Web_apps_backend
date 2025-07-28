@@ -28,11 +28,11 @@ CORS(app, origins=["http://localhost:3000"])
 
 # --- MySQL Config ---
 DB_CONFIG = {
-    'host': os.getenv('MYSQL_HOST', 'localhost'),
-    'user': os.getenv('MYSQL_USER', 'root'),
-    'password': os.getenv('MYSQL_PASSWORD', ''),
-    'database': os.getenv('MYSQL_DATABASE', 'dryapple'),
-    'port': int(os.getenv('MYSQL_PORT', 3306))
+    'host': os.getenv('MYSQLHOST'),
+    'user': os.getenv('MYSQLUSER'),
+    'password': os.getenv('MYSQLPASSWORD'),
+    'database': os.getenv('MYSQLDATABASE'),
+    'port': int(os.getenv('MYSQLPORT'))
 }
 
 def get_db_connection():
