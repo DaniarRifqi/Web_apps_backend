@@ -25,7 +25,7 @@ except Exception as e:
 
 app = Flask(__name__)
 CORS(app, origins=["http://localhost:3000"])
-@route('/')
+@app.route('/')
 def index():
     return jsonify({"status": "success", 'message': 'Welcome to the Dry Apple Detection API'}), 200
 
