@@ -9,6 +9,7 @@ import io
 import mysql.connector
 from datetime import datetime
 import os
+from mysql.connector import Error
 
 MODEL_PATH = "efficientnetv2b1_model.h5"
 class_names = ["basah", "kering", "sedang"]
