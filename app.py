@@ -24,7 +24,7 @@ except Exception as e:
     exit(1)
 
 app = Flask(__name__)
-CORS(app, origins=["https://web-apps-frontend-bay.vercel.app/"])
+CORS(app, origins=["https://web-apps-frontend-bay.vercel.app"])
 @app.route('/')
 def index():
     return jsonify({"status": "success", 'message': 'Welcome to the Dry Apple Detection API'}), 200
