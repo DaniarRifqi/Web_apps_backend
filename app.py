@@ -161,6 +161,42 @@ def delete_history(id):
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+
+@app.route('/api/history/clear-all', methods=['DELETE'])
+def clear_all_history():
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        # Dapatkan daftar semua nama file gambar sebelum menghapus entri database
+        cursor.execute('SELECT image FROM history')
+        image_filenames = [row[0] for row in cursor.fetchall()]
+
+        # Hapus semua data dari database
+        cursor.execute('DELETE FROM history')
+        conn.commit()
+        cursor.close()
+        conn.close()
+
+        # Hapus semua file gambar dari folder 'uploads'
+        uploads_dir = os.path.join(os.path.dirname(__file__), 'uploads')
+        for filename in image_filenames:
+            file_path = os.path.join(uploads_dir, filename)
+            if os.path.exists(file_path):
+                os.remove(file_path)
+                print(f"Deleted image file: {file_path}") # Tambahkan log untuk debugging
+            else:
+                print(f"Image file not found: {file_path}") # Log jika file tidak ditemukan
+
+        return jsonify({'success': True, 'message': 'All history and associated images deleted successfully'}), 200
+    except Error as err:
+        print(f"Error clearing all history: {err}") # Log error database
+        return jsonify({'success': False, 'message': f'Database error: {err}'}), 500
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}") # Log error umum
+        return jsonify({'success': False, 'message': f'An unexpected error occurred: {e}'}), 500
+
+
 from flask import send_from_directory
 
 @app.route('/uploads/<filename>')
